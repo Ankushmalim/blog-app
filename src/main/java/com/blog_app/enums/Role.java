@@ -1,0 +1,6 @@
+package com.blog_app.enums;
+
+public enum Role {
+    ROLE_ADMIN,
+    ROLE_USER
+}
