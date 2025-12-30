@@ -1,6 +1,7 @@
 package com.blog_app.exception;
 
 import com.blog_app.dtos.ErrorResponse;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.http.*;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;

@@ -5,6 +5,8 @@ import com.blog_app.dtos.PostRequestDto;
 import com.blog_app.dtos.PostResponseDto;
 import com.blog_app.entities.Post;
 import com.blog_app.entities.User;
+import com.blog_app.exception.AlreadyExistException;
+import com.blog_app.exception.GlobalExceptionHandler;
 import com.blog_app.exception.ResourceNotFoundException;
 import com.blog_app.repositories.PostRepository;
 import com.blog_app.services.PostService;
@@ -34,6 +36,9 @@ public class PostServiceImpl implements PostService {
 
         User user = userService.getCurrentUser();
         Post post = postMapper.toEntity(dto, user);
+        if (postRepository.existsByTitle(dto.getTitle())){
+            throw new AlreadyExistException("Post already exists with title: " + dto.getTitle());
+        }
         log.info("Post Created!");
         return postMapper.toDto(postRepository.save(post));
     }
