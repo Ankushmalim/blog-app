@@ -9,9 +9,11 @@ import com.blog_app.exception.ResourceNotFoundException;
 import com.blog_app.repositories.PostRepository;
 import com.blog_app.services.PostService;
 import com.blog_app.services.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class PostServiceImpl implements PostService {
 
@@ -32,7 +34,7 @@ public class PostServiceImpl implements PostService {
 
         User user = userService.getCurrentUser();
         Post post = postMapper.toEntity(dto, user);
-
+        log.info("Post Created!");
         return postMapper.toDto(postRepository.save(post));
     }
 
