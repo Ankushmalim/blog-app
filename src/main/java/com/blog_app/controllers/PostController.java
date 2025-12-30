@@ -4,9 +4,11 @@ import com.blog_app.dtos.PostRequestDto;
 import com.blog_app.dtos.PostResponseDto;
 import com.blog_app.services.PostService;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.*;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/posts")
 public class PostController {
@@ -20,7 +22,9 @@ public class PostController {
     @PostMapping
     public PostResponseDto createPost(
             @RequestBody @Valid PostRequestDto dto) {
-        return postService.createPost(dto);
+        log.info("Creating post here");
+        PostResponseDto post = postService.createPost(dto);
+        return post;
     }
 
     @GetMapping
