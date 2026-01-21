@@ -1,14 +1,15 @@
 package com.blog_app.services;
 
-import com.blog_app.dtos.CommentDto;
+import com.blog_app.dtos.CommentRequestDto;
+import com.blog_app.dtos.CommentResponseDto;
 
 import java.util.List;
 
 public interface CommentService {
 
-    CommentDto addComment(Long postId, CommentDto dto);
+    CommentResponseDto addComment(Long postId, CommentRequestDto dto);
 
-    List<CommentDto> getCommentsByPost(Long postId);
+    List<CommentResponseDto> getCommentsByPost(Long postId);
 
     void deleteComment(Long id);
 }

@@ -1,6 +1,7 @@
 package com.blog_app.controllers;
 
-import com.blog_app.dtos.CommentDto;
+import com.blog_app.dtos.CommentResponseDto;
+import com.blog_app.dtos.CommentRequestDto;
 import com.blog_app.services.CommentService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -17,14 +18,14 @@ public class CommentController {
     }
 
     @PostMapping
-    public CommentDto addComment(
+    public CommentResponseDto addComment(
             @PathVariable Long postId,
-            @RequestBody @Valid CommentDto dto) {
+            @RequestBody @Valid CommentRequestDto dto) {
         return commentService.addComment(postId, dto);
     }
 
     @GetMapping
-    public List<CommentDto> getComments(
+    public List<CommentResponseDto> getComments(
             @PathVariable Long postId) {
         return commentService.getCommentsByPost(postId);
     }

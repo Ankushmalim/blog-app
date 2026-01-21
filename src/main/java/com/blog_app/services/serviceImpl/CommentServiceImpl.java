@@ -1,7 +1,8 @@
 package com.blog_app.services.serviceImpl;
 
 import com.blog_app.config.CommentMapper;
-import com.blog_app.dtos.CommentDto;
+import com.blog_app.dtos.CommentRequestDto;
+import com.blog_app.dtos.CommentResponseDto;
 import com.blog_app.entities.Comment;
 import com.blog_app.entities.Post;
 import com.blog_app.exception.ResourceNotFoundException;
@@ -33,7 +34,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentDto addComment(Long postId, CommentDto dto) {
+    public CommentResponseDto addComment(Long postId, CommentRequestDto dto) {
 
         Post post = postRepository.findById(postId)
                 .orElseThrow(() ->
@@ -48,7 +49,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentDto> getCommentsByPost(Long postId) {
+    public List<CommentResponseDto> getCommentsByPost(Long postId) {
 
         if (!postRepository.existsById(postId)) {
             throw new ResourceNotFoundException("Post not found");
@@ -66,6 +67,9 @@ public class CommentServiceImpl implements CommentService {
         if (!commentRepository.existsById(id)) {
             throw new ResourceNotFoundException("Comment not found");
         }
-        commentRepository.deleteById(id);
+        Comment comment = new Comment();
+        if(comment.getUser().equals(userService.getCurrentUser())) {
+            commentRepository.deleteById(id);
+        }
     }
 }
